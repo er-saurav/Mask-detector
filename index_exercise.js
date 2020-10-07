@@ -14,6 +14,8 @@ async function predict() {
       const predictions = maskModel.predict(img);
       return predictions.as1D().argMax();
     });
+	  console.log('numTensors (outside tidy): ' + tf.memory().numTensors);
+predictedClass.print();
     const classId = (await predictedClass.data())[0];
     var predictionText = "";
     switch(classId){
@@ -23,6 +25,8 @@ async function predict() {
 		case 1:
 			predictionText = "Masked";
 			break;    
+	    default:
+		    predictionText = error
 	}
 	document.getElementById("prediction").innerText = predictionText;
 			
